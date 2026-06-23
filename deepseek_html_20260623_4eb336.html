@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Atelier de l'Homme – Barbier & Coiffeur Saint-Ouen</title>
+  <meta name="description" content="Barbier & coiffeur mixte à Saint-Ouen-sur-Seine. Coupe, rasage à la serviette chaude, taille de barbe. Sur rendez-vous au 09 53 02 98 80." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --noir: #0D0D0D;
+      --cuir: #8B5A2B;
+      --blanc-casse: #F5F0EB;
+      --rouge-brique: #A63A2F;
+      --gris-fonce: #1A1A1A;
+      --gris-clair: #B0A8A0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--noir);
+      color: var(--blanc-casse);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    /* ===== TEXTURE DE FOND (grain) ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+    /* ===== SCROLL PROGRESS ===== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--rouge-brique);
+      z-index: 999;
+      width: 0%;
+      transition: width 0.08s linear;
+      border-radius: 0 2px 2px 0;
+    }
+    /* ===== NAV ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 2rem;
+      background: rgba(13, 13, 13, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(139, 90, 43, 0.3);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 38px;
+      height: 38px;
+      border: 2px solid var(--cuir);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--blanc-casse);
+      letter-spacing: 2px;
+    }
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--blanc-casse);
+      letter-spacing: 1px;
+    }
+    .nav-sub {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gris-clair);
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gris-clair);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      transition: all 0.25s;
+      font-weight: 500;
+    }
+    .nav-links a:hover {
+      color: var(--blanc-casse);
+      background: rgba(139, 90, 43, 0.15);
+    }
+    .nav-cta {
+      background: var(--cuir);
+      color: var(--blanc-casse);
+      padding: 0.45rem 1.2rem;
+      border-radius: 2px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: background 0.25s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover {
+      background: var(--rouge-brique);
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      nav {
+        padding: 0.6rem 1rem;
+      }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 2rem 2.5rem 4rem;
+      gap: 3rem;
+      position: relative;
+      border-bottom: 1px solid rgba(139, 90, 43, 0.2);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cuir), transparent);
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--cuir);
+      border: 1px solid rgba(139, 90, 43, 0.3);
+      padding: 0.3rem 1rem;
+      width: fit-content;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--rouge-brique);
+      border-radius: 50%;
+      animation: pulse-dot 1.8s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+    .hero h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--blanc-casse);
+    }
+    .hero h1 span {
+      color: var(--cuir);
+      display: block;
+      font-weight: 400;
+      letter-spacing: 4px;
+    }
+    .hero-desc {
+      font-size: 0.92rem;
+      color: var(--gris-clair);
+      line-height: 1.8;
+      max-width: 440px;
+      font-weight: 300;
+      border-left: 2px solid var(--cuir);
+      padding-left: 1.2rem;
+    }
+    .hero-tel {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1.4rem;
+      border: 1px solid rgba(139, 90, 43, 0.3);
+      border-radius: 2px;
+      text-decoration: none;
+      color: var(--blanc-casse);
+      width: fit-content;
+      transition: all 0.3s;
+      background: rgba(13, 13, 13, 0.6);
+    }
+    .hero-tel:hover {
+      border-color: var(--cuir);
+      background: rgba(139, 90, 43, 0.08);
+    }
+    .hero-tel .tel-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--blanc-casse);
+    }
+    .hero-tel .tel-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gris-clair);
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .btn-primary {
+      background: var(--cuir);
+      color: var(--noir);
+      padding: 0.7rem 1.8rem;
+      border-radius: 2px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.25s;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--rouge-brique);
+      color: var(--blanc-casse);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      border: 1px solid rgba(139, 90, 43, 0.4);
+      color: var(--blanc-casse);
+      padding: 0.7rem 1.8rem;
+      border-radius: 2px;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.25s;
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      border-color: var(--cuir);
+      background: rgba(139, 90, 43, 0.08);
+    }
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+    .hero-visual .main-svg {
+      width: 100%;
+      aspect-ratio: 1/1.1;
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .hero-visual .main-svg svg {
+      width: 100%;
+      height: 100%;
+      max-height: 380px;
+    }
+    .hero-visual .secondary-svg {
+      height: 80px;
+      border-radius: 4px;
+      border: 1px solid rgba(139, 90, 43, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      background: rgba(13, 13, 13, 0.6);
+      color: var(--gris-clair);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .hero-visual .secondary-svg span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.5rem 3rem;
+        min-height: auto;
+      }
+      .hero-visual .main-svg {
+        aspect-ratio: 1/0.8;
+      }
+    }
+
+    /* ===== BANDEAU PRESTATIONS ===== */
+    .strip {
+      background: var(--gris-fonce);
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(139, 90, 43, 0.15);
+      border-top: 1px solid rgba(139, 90, 43, 0.15);
+    }
+    .strip span {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gris-clair);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .strip span::before {
+      content: '◆';
+      color: var(--cuir);
+      font-size: 0.5rem;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cuir);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1.5px;
+      background: var(--cuir);
+    }
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .section-title span {
+      color: var(--cuir);
+    }
+    .section-sub {
+      font-size: 0.88rem;
+      color: var(--gris-clair);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+    .rule {
+      width: 40px;
+      height: 2px;
+      background: var(--rouge-brique);
+      margin: 1.2rem 0 2.5rem;
+    }
+
+    /* ===== SERVICES ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(139, 90, 43, 0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+    .service-card {
+      background: var(--gris-fonce);
+      padding: 2rem 1.2rem;
+      text-align: center;
+      transition: background 0.3s;
+      border-right: 1px solid rgba(139, 90, 43, 0.08);
+    }
+    .service-card:last-child {
+      border-right: none;
+    }
+    .service-card:hover {
+      background: var(--noir);
+    }
+    .service-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    .service-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.3rem;
+    }
+    .service-card p {
+      font-size: 0.75rem;
+      color: var(--gris-clair);
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .service-card {
+        border-right: none;
+        border-bottom: 1px solid rgba(139, 90, 43, 0.08);
+      }
+    }
+    @media (max-width: 480px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== POURQUOI ===== */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .why-card {
+      background: var(--gris-fonce);
+      border: 1px solid rgba(139, 90, 43, 0.12);
+      border-radius: 4px;
+      padding: 1.8rem 1.2rem;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+    .why-card:hover {
+      border-color: var(--cuir);
+    }
+    .why-card .num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--cuir);
+      line-height: 1;
+    }
+    .why-card h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0.6rem 0 0.2rem;
+    }
+    .why-card p {
+      font-size: 0.75rem;
+      color: var(--gris-clair);
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .why-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== GALERIE ===== */
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 2rem;
+    }
+    .galerie-item {
+      aspect-ratio: 1/1;
+      background: var(--gris-fonce);
+      border: 1px solid rgba(139, 90, 43, 0.1);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .galerie-item:hover {
+      border-color: var(--cuir);
+    }
+    .galerie-item .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.6rem;
+      background: linear-gradient(transparent, rgba(13, 13, 13, 0.85));
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gris-clair);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .galerie-item:hover .overlay {
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      .galerie-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .galerie-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== AVIS ===== */
+    .avis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .avis-card {
+      background: var(--gris-fonce);
+      border: 1px solid rgba(139, 90, 43, 0.1);
+      border-radius: 4px;
+      padding: 1.8rem;
+      transition: border-color 0.3s;
+    }
+    .avis-card:hover {
+      border-color: var(--cuir);
+    }
+    .avis-stars {
+      color: var(--cuir);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+    }
+    .avis-card blockquote {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--gris-clair);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .avis-author {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .avis-initials {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--cuir);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.7rem;
+      color: var(--noir);
+      flex-shrink: 0;
+    }
+    .avis-name {
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .avis-loc {
+      font-size: 0.65rem;
+      color: var(--gris-clair);
+    }
+    @media (max-width: 768px) {
+      .avis-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-section {
+      background: var(--gris-fonce);
+      border-top: 1px solid rgba(139, 90, 43, 0.15);
+      border-bottom: 1px solid rgba(139, 90, 43, 0.15);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    .contact-infos {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(139, 90, 43, 0.1);
+      border-radius: 3px;
+      text-decoration: none;
+      color: var(--blanc-casse);
+      transition: border-color 0.25s;
+    }
+    .contact-item:hover {
+      border-color: var(--cuir);
+    }
+    .contact-item .icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      color: var(--cuir);
+    }
+    .contact-item .label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gris-clair);
+      display: block;
+    }
+    .contact-item .value {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .contact-form {
+      background: rgba(13, 13, 13, 0.5);
+      border: 1px solid rgba(139, 90, 43, 0.12);
+      border-radius: 4px;
+      padding: 2rem;
+    }
+    .form-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .form-group label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gris-clair);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(139, 90, 43, 0.15);
+      border-radius: 3px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--blanc-casse);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.15);
+    }
+    .form-group select option {
+      background: var(--noir);
+      color: var(--blanc-casse);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--cuir);
+    }
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-submit {
+      background: var(--cuir);
+      color: var(--noir);
+      border: none;
+      padding: 0.8rem;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.25s;
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+    }
+    .form-submit:hover {
+      background: var(--rouge-brique);
+      color: var(--blanc-casse);
+    }
+    .form-success {
+      display: none;
+      background: rgba(139, 90, 43, 0.12);
+      border: 1px solid var(--cuir);
+      border-radius: 3px;
+      padding: 0.8rem;
+      font-size: 0.82rem;
+      color: var(--cuir);
+      text-align: center;
+      margin-top: 1rem;
+    }
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--noir);
+      padding: 2rem 2rem;
+      border-top: 1px solid rgba(139, 90, 43, 0.08);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer p {
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.15);
+    }
+    footer span {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 0.65rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: var(--cuir);
+    }
+
+    /* ===== REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-l {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-l.in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-r {
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-r.in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== SCROLL PROGRESS ===== -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ===== NAV ===== -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-mark">L.H</div>
+      <div class="nav-logo-text">
+        <span class="nav-name">L'Atelier de l'Homme</span>
+        <span class="nav-sub">Barbier · Coiffeur · Saint-Ouen</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#avis">Avis</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">📞 Réserver</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Ouvert 7j/7 · 9h–20h</div>
+      <h1>
+        L'Atelier<br />
+        <span>de l'Homme</span>
+      </h1>
+      <p class="hero-desc">
+        Barbier &amp; coiffeur mixte à Saint-Ouen. Coupe, rasage à la serviette chaude,
+        taille de barbe. Un vrai salon, sans chichis.
+      </p>
+      <a href="tel:+33953029880" class="hero-tel">
+        <span class="tel-num">09 53 02 98 80</span>
+        <span class="tel-label">Appelez pour réserver</span>
+      </a>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">Prendre rendez-vous</a>
+        <a href="#services" class="btn-outline">Nos prestations</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="main-svg">
+        <svg viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Silhouette barbier stylisée -->
+          <circle cx="200" cy="120" r="60" stroke="#8B5A2B" stroke-width="2" fill="none" />
+          <path d="M140 180 L120 300 L160 280 L180 340 L220 340 L240 280 L280 300 L260 180 Z" stroke="#8B5A2B" stroke-width="1.5" fill="none" />
+          <path d="M160 220 L170 260 L180 220" stroke="#8B5A2B" stroke-width="1.5" />
+          <path d="M240 220 L230 260 L220 220" stroke="#8B5A2B" stroke-width="1.5" />
+          <!-- Ciseaux -->
+          <line x1="100" y1="80" x2="150" y2="140" stroke="#A63A2F" stroke-width="2" />
+          <line x1="110" y1="80" x2="160" y2="140" stroke="#A63A2F" stroke-width="2" />
+          <circle cx="100" cy="80" r="6" stroke="#A63A2F" stroke-width="1.5" />
+          <circle cx="110" cy="80" r="6" stroke="#A63A2F" stroke-width="1.5" />
+          <!-- Rasoir -->
+          <path d="M300 100 L340 80 L350 90 L310 110 Z" stroke="#A63A2F" stroke-width="1.5" fill="none" />
+          <rect x="340" y="78" width="20" height="8" rx="2" stroke="#8B5A2B" stroke-width="1.5" fill="none" />
+          <!-- Texte -->
+          <text x="200" y="390" text-anchor="middle" font-family="Oswald, sans-serif" font-size="22" font-weight="600" fill="#F5F0EB" letter-spacing="4">BARBIER</text>
+          <text x="200" y="412" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8B5A2B" letter-spacing="2">DEPUIS 2021</text>
+        </svg>
+      </div>
+      <div class="secondary-svg">
+        <span>✂️ Coupe</span>
+        <span>🪒 Rasage</span>
+        <span>🧔 Barbe</span>
+        <span>💈 Mixte</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STRIP ===== -->
+  <div class="strip">
+    <span>Ouvert 7j/7</span>
+    <span>9h – 20h</span>
+    <span>Sur rendez-vous</span>
+    <span>Rasage serviette chaude</span>
+    <span>Coiffure mixte</span>
+  </div>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="section-wrap" id="services">
+    <div class="eyebrow reveal">Nos prestations</div>
+    <h2 class="section-title reveal">Ce qu'on fait <span>pour vous</span></h2>
+    <p class="section-sub reveal">Coupe, rasage, barbe – on maîtrise tout. Et on prend le temps.</p>
+    <div class="rule reveal"></div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">✂️</span>
+        <h3>Coupe homme</h3>
+        <p>Coupe classique, dégradé, tonte. On s'adapte à votre style.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🪒</span>
+        <h3>Rasage à l'ancienne</h3>
+        <p>Serviette chaude, mousse au blaireau, rasoir de sûreté.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🧔</span>
+        <h3>Taille de barbe</h3>
+        <p>Dessin, coupe, entretien – on redessine votre barbe.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">💈</span>
+        <h3>Coiffure mixte</h3>
+        <p>Pour hommes et femmes. Coupe, brushing, coloration.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== POURQUOI ===== -->
+  <section class="section-wrap" style="background:var(--gris-fonce);border-top:1px solid rgba(139,90,43,0.08);border-bottom:1px solid rgba(139,90,43,0.08);">
+    <div class="eyebrow reveal">Pourquoi venir</div>
+    <h2 class="section-title reveal">L'Atelier <span>en 4 points</span></h2>
+    <div class="rule reveal"></div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="num">01</div>
+        <h4>Artisan barbier</h4>
+        <p>Formé aux techniques traditionnelles, Sofiene vous reçoit en personne.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">02</div>
+        <h4>Ouvert 7j/7</h4>
+        <p>Du lundi au dimanche, 9h–20h. Même le week-end.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">03</div>
+        <h4>Prix clairs</h4>
+        <p>Pas de surprise. Le prix est annoncé avant la prestation.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">04</div>
+        <h4>Ambiance posée</h4>
+        <p>Un salon calme, propre, où on prend le temps de faire bien.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALERIE ===== -->
+  <section class="section-wrap" id="galerie">
+    <div class="eyebrow reveal">Nos réalisations</div>
+    <h2 class="section-title reveal">Galerie <span>du salon</span></h2>
+    <p class="section-sub reveal">Quelques coupes et rasages récents (en vrai).</p>
+    <div class="rule reveal"></div>
+    <div class="galerie-grid">
+      <div class="galerie-item reveal">
+        ✂️
+        <div class="overlay">Dégradé parfait</div>
+      </div>
+      <div class="galerie-item reveal">
+        🪒
+        <div class="overlay">Rasage serviette chaude</div>
+      </div>
+      <div class="galerie-item reveal">
+        🧔
+        <div class="overlay">Taille de barbe</div>
+      </div>
+      <div class="galerie-item reveal">
+        💈
+        <div class="overlay">Coupe mixte</div>
+      </div>
+      <div class="galerie-item reveal">
+        ✨
+        <div class="overlay">Brushing homme</div>
+      </div>
+      <div class="galerie-item reveal">
+        🎯
+        <div class="overlay">Avant / Après</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AVIS ===== -->
+  <section class="section-wrap" id="avis" style="background:var(--gris-fonce);border-top:1px solid rgba(139,90,43,0.08);border-bottom:1px solid rgba(139,90,43,0.08);">
+    <div class="eyebrow reveal">Ils parlent de nous</div>
+    <h2 class="section-title reveal">Avis <span>clients</span></h2>
+    <div class="rule reveal"></div>
+    <div class="avis-grid">
+      <div class="avis-card reveal">
+        <div class="avis-stars">★★★★★</div>
+        <blockquote>"Un vrai barbier comme on les aime. Sofiene est précis, à l'écoute, et le rasage à la serviette chaude est un vrai moment de détente."</blockquote>
+        <div class="avis-author">
+          <div class="avis-initials">TL</div>
+          <div>
+            <div class="avis-name">Thomas L.</div>
+            <div class="avis-loc">Saint-Ouen</div>
+          </div>
+        </div>
+      </div>
+      <div class="avis-card reveal">
+        <div class="avis-stars">★★★★★</div>
+        <blockquote>"Je suis passé de la barbe de trois jours à une coupe nette et carrée. Il maîtrise. Et en plus, il est sympa. Je reviendrai."</blockquote>
+        <div class="avis-author">
+          <div class="avis-initials">MR</div>
+          <div>
+            <div class="avis-name">Marc R.</div>
+            <div class="avis-loc">Paris 18</div>
+          </div>
+        </div>
+      </div>
+      <div class="avis-card reveal">
+        <div class="avis-stars">★★★★★</div>
+        <blockquote>"Enfin un salon où on ne te précipite pas. Sofiene prend son temps, le résultat est impeccable. Et les horaires 7j/7 c'est un luxe."</blockquote>
+        <div class="avis-author">
+          <div class="avis-initials">SB</div>
+          <div>
+            <div class="avis-name">Sarah B.</div>
+            <div class="avis-loc">Saint-Ouen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact-section section-wrap" id="contact">
+    <div class="eyebrow reveal">Prenez rendez-vous</div>
+    <h2 class="section-title reveal">On se <span>rencontre ?</span></h2>
+    <p class="section-sub reveal">Appelez, passez, ou écrivez. On vous répond dans la journée.</p>
+    <div class="rule reveal"></div>
+    <div class="contact-grid">
+      <div class="contact-infos">
+        <a href="tel:+33953029880" class="contact-item">
+          <span class="icon">📞</span>
+          <div>
+            <span class="label">Téléphone</span>
+            <span class="value">09 53 02 98 80</span>
+          </div>
+        </a>
+        <a href="mailto:latelierdelhomme@gmail.com" class="contact-item">
+          <span class="icon">✉️</span>
+          <div>
+            <span class="label">Email</span>
+            <span class="value">latelierdelhomme@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://maps.google.com/?q=9+Rue+Alfred+Ottino+93400+Saint-Ouen" target="_blank" class="contact-item">
+          <span class="icon">📍</span>
+          <div>
+            <span class="label">Adresse</span>
+            <span class="value">9 Rue Alfred Ottino, 93400 Saint-Ouen</span>
+          </div>
+        </a>
+        <div class="contact-item" style="cursor:default;">
+          <span class="icon">🕐</span>
+          <div>
+            <span class="label">Horaires</span>
+            <span class="value">Lun–Dim · 9h–20h</span>
+          </div>
+        </div>
+        <div style="margin-top:0.5rem;padding:1rem;border:1px solid rgba(139,90,43,0.08);border-radius:3px;background:rgba(13,13,13,0.4);">
+          <p style="font-size:0.75rem;color:var(--gris-clair);line-height:1.6;">
+            <strong style="color:var(--blanc-casse);">Sofiene Jenayeh</strong> · Barbier depuis 2021<br />
+            SIREN 893 905 968 · SAS · Coiffure mixte
+          </p>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-title">Demande de rendez-vous</div>
+        <form id="contact-form" action="https://formspree.io/f/latelierdelhomme@gmail.com" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Prénom *</label>
+              <input type="text" name="prenom" placeholder="Votre prénom" required />
+            </div>
+            <div class="form-group">
+              <label>Nom *</label>
+              <input type="text" name="nom" placeholder="Votre nom" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Téléphone *</label>
+              <input type="tel" name="telephone" placeholder="06 XX XX XX XX" required />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="votre@email.fr" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Prestation souhaitée *</label>
+            <select name="prestation" required>
+              <option value="">Choisissez...</option>
+              <option>Coupe homme</option>
+              <option>Rasage à l'ancienne</option>
+              <option>Taille de barbe</option>
+              <option>Coiffure mixte</option>
+              <option>Coloration</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" placeholder="Vos disponibilités ou précisions..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Envoyer la demande</button>
+          <div class="form-success" id="form-ok">✅ Message envoyé ! Sofiene vous rappelle rapidement.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <p><span>L'Atelier de l'Homme</span> · 9 Rue Alfred Ottino, 93400 Saint-Ouen · 09 53 02 98 80</p>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p>SIREN 893 905 968 · © 2026</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    'use strict';
+
+    // ===== SCROLL PROGRESS =====
+    const progress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', function() {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      progress.style.width = Math.min(pct, 100) + '%';
+    }, { passive: true });
+
+    // ===== REVEAL ANIMATIONS =====
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e, i) {
+        if (e.isIntersecting) {
+          setTimeout(function() {
+            e.target.classList.add('in');
+          }, i * 60);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // ===== FORMULAIRE =====
+    const form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = form.querySelector('.form-submit');
+        const original = btn.textContent;
+        btn.textContent = 'Envoi...';
+        btn.disabled = true;
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            document.getElementById('form-ok').style.display = 'block';
+            form.reset();
+            btn.textContent = '✅ Envoyé !';
+          } else {
+            btn.textContent = 'Réessayer';
+            btn.disabled = false;
+          }
+        } catch (_) {
+          btn.textContent = 'Réessayer';
+          btn.disabled = false;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
