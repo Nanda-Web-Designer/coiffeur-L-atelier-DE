@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>L'Atelier de l'Homme – Barbier & Coiffeur Saint-Ouen</title>
   <meta name="description" content="Barbier & coiffeur mixte à Saint-Ouen-sur-Seine. Coupe, rasage à la serviette chaude, taille de barbe. Sur rendez-vous au 09 53 02 98 80." />
+
+  <!-- ===== FAVICON ===== -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D0D0D'/%3E%3Cpath d='M16 6 L12 14 L20 14 Z' fill='%238B5A2B'/%3E%3Cpath d='M10 18 L22 18 L20 26 L12 26 Z' fill='%238B5A2B'/%3E%3Ccircle cx='16' cy='10' r='3' fill='%23A63A2F'/%3E%3C/svg%3E" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -32,7 +36,7 @@
       overflow-x: hidden;
       line-height: 1.6;
     }
-    /* ===== TEXTURE DE FOND (grain) ===== */
+    /* ===== TEXTURE DE FOND ===== */
     body::before {
       content: '';
       position: fixed;
@@ -83,7 +87,7 @@
       justify-content: center;
       font-family: 'Oswald', sans-serif;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: var(--blanc-casse);
       letter-spacing: 2px;
     }
@@ -304,21 +308,19 @@
       gap: 8px;
       position: relative;
     }
-    .hero-visual .main-svg {
+    .hero-visual .main-photo {
       width: 100%;
       aspect-ratio: 1/1.1;
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-      border: 1px solid rgba(139, 90, 43, 0.2);
       border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      overflow: hidden;
+      background: var(--gris-fonce);
     }
-    .hero-visual .main-svg svg {
+    .hero-visual .main-photo img {
       width: 100%;
       height: 100%;
-      max-height: 380px;
+      object-fit: cover;
+      display: block;
     }
     .hero-visual .secondary-svg {
       height: 80px;
@@ -345,7 +347,7 @@
         padding: 2rem 1.5rem 3rem;
         min-height: auto;
       }
-      .hero-visual .main-svg {
+      .hero-visual .main-photo {
         aspect-ratio: 1/0.8;
       }
     }
@@ -530,55 +532,62 @@
       }
     }
 
-    /* ===== GALERIE ===== */
-    .galerie-grid {
+    /* ===== TARIFS ===== */
+    .tarifs-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-top: 2rem;
-    }
-    .galerie-item {
-      aspect-ratio: 1/1;
-      background: var(--gris-fonce);
-      border: 1px solid rgba(139, 90, 43, 0.1);
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.8rem;
-      position: relative;
+      gap: 1px;
+      background: rgba(139, 90, 43, 0.12);
+      border-radius: 4px;
       overflow: hidden;
-      transition: border-color 0.3s;
+      margin-top: 2rem;
+      border: 1px solid rgba(139, 90, 43, 0.08);
     }
-    .galerie-item:hover {
-      border-color: var(--cuir);
+    .tarif-item {
+      background: var(--gris-fonce);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      transition: background 0.25s;
+      border-right: 1px solid rgba(139, 90, 43, 0.06);
+      border-bottom: 1px solid rgba(139, 90, 43, 0.06);
     }
-    .galerie-item .overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 0.6rem;
-      background: linear-gradient(transparent, rgba(13, 13, 13, 0.85));
-      font-size: 0.6rem;
+    .tarif-item:nth-child(3n) {
+      border-right: none;
+    }
+    .tarif-item:hover {
+      background: var(--noir);
+    }
+    .tarif-item .presta {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--gris-clair);
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.3s;
+      color: var(--blanc-casse);
     }
-    .galerie-item:hover .overlay {
-      opacity: 1;
+    .tarif-item .prix {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cuir);
+      margin-top: 0.2rem;
     }
     @media (max-width: 768px) {
-      .galerie-grid {
+      .tarifs-grid {
         grid-template-columns: 1fr 1fr;
+      }
+      .tarif-item:nth-child(3n) {
+        border-right: 1px solid rgba(139, 90, 43, 0.06);
+      }
+      .tarif-item:nth-child(2n) {
+        border-right: none;
       }
     }
     @media (max-width: 480px) {
-      .galerie-grid {
+      .tarifs-grid {
         grid-template-columns: 1fr;
+      }
+      .tarif-item {
+        border-right: none;
       }
     }
 
@@ -875,7 +884,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
       <li><a href="#avis">Avis</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -900,29 +909,12 @@
       </a>
       <div class="hero-buttons">
         <a href="#contact" class="btn-primary">Prendre rendez-vous</a>
-        <a href="#services" class="btn-outline">Nos prestations</a>
+        <a href="#tarifs" class="btn-outline">Nos tarifs</a>
       </div>
     </div>
     <div class="hero-visual">
-      <div class="main-svg">
-        <svg viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Silhouette barbier stylisée -->
-          <circle cx="200" cy="120" r="60" stroke="#8B5A2B" stroke-width="2" fill="none" />
-          <path d="M140 180 L120 300 L160 280 L180 340 L220 340 L240 280 L280 300 L260 180 Z" stroke="#8B5A2B" stroke-width="1.5" fill="none" />
-          <path d="M160 220 L170 260 L180 220" stroke="#8B5A2B" stroke-width="1.5" />
-          <path d="M240 220 L230 260 L220 220" stroke="#8B5A2B" stroke-width="1.5" />
-          <!-- Ciseaux -->
-          <line x1="100" y1="80" x2="150" y2="140" stroke="#A63A2F" stroke-width="2" />
-          <line x1="110" y1="80" x2="160" y2="140" stroke="#A63A2F" stroke-width="2" />
-          <circle cx="100" cy="80" r="6" stroke="#A63A2F" stroke-width="1.5" />
-          <circle cx="110" cy="80" r="6" stroke="#A63A2F" stroke-width="1.5" />
-          <!-- Rasoir -->
-          <path d="M300 100 L340 80 L350 90 L310 110 Z" stroke="#A63A2F" stroke-width="1.5" fill="none" />
-          <rect x="340" y="78" width="20" height="8" rx="2" stroke="#8B5A2B" stroke-width="1.5" fill="none" />
-          <!-- Texte -->
-          <text x="200" y="390" text-anchor="middle" font-family="Oswald, sans-serif" font-size="22" font-weight="600" fill="#F5F0EB" letter-spacing="4">BARBIER</text>
-          <text x="200" y="412" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8B5A2B" letter-spacing="2">DEPUIS 2021</text>
-        </svg>
+      <div class="main-photo">
+        <img src="image face atelier.jpg" alt="Façade de L'Atelier de l'Homme - Barbier Saint-Ouen" onerror="this.style.display='none'; this.parentElement.style.background='#1A1A1A'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:Oswald,sans-serif;font-size:1.2rem;color:#8B5A2B;letter-spacing:4px;\'>L\'ATELIER<br />BARBERSHOP</div>'">
       </div>
       <div class="secondary-svg">
         <span>✂️ Coupe</span>
@@ -1001,37 +993,25 @@
     </div>
   </section>
 
-  <!-- ===== GALERIE ===== -->
-  <section class="section-wrap" id="galerie">
-    <div class="eyebrow reveal">Nos réalisations</div>
-    <h2 class="section-title reveal">Galerie <span>du salon</span></h2>
-    <p class="section-sub reveal">Quelques coupes et rasages récents (en vrai).</p>
+  <!-- ===== TARIFS ===== -->
+  <section class="section-wrap" id="tarifs">
+    <div class="eyebrow reveal">Nos prix</div>
+    <h2 class="section-title reveal">Tarifs <span>2026</span></h2>
+    <p class="section-sub reveal">Des prestations claires, des prix annoncés avant chaque service.</p>
     <div class="rule reveal"></div>
-    <div class="galerie-grid">
-      <div class="galerie-item reveal">
-        ✂️
-        <div class="overlay">Dégradé parfait</div>
-      </div>
-      <div class="galerie-item reveal">
-        🪒
-        <div class="overlay">Rasage serviette chaude</div>
-      </div>
-      <div class="galerie-item reveal">
-        🧔
-        <div class="overlay">Taille de barbe</div>
-      </div>
-      <div class="galerie-item reveal">
-        💈
-        <div class="overlay">Coupe mixte</div>
-      </div>
-      <div class="galerie-item reveal">
-        ✨
-        <div class="overlay">Brushing homme</div>
-      </div>
-      <div class="galerie-item reveal">
-        🎯
-        <div class="overlay">Avant / Après</div>
-      </div>
+    <div class="tarifs-grid">
+      <div class="tarif-item reveal"><span class="presta">Coupe homme</span><div class="prix">25 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Coupe + barbe</span><div class="prix">38 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Barbe</span><div class="prix">18 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Masque</span><div class="prix">15 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Contours</span><div class="prix">12 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Barbe + contour</span><div class="prix">25 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Défrisage</span><div class="prix">45 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Soins de visage</span><div class="prix">35 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Teinture</span><div class="prix">40 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Kératine</span><div class="prix">65 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Coupe enfant</span><div class="prix">18 €</div></div>
+      <div class="tarif-item reveal"><span class="presta">Coloration</span><div class="prix">45 €</div></div>
     </div>
   </section>
 
@@ -1122,7 +1102,7 @@
       </div>
       <div class="contact-form">
         <div class="form-title">Demande de rendez-vous</div>
-        <form id="contact-form" action="https://formspree.io/f/latelierdelhomme@gmail.com" method="POST">
+        <form id="contact-form" action="https://formspree.io/f/xkolgepk" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label>Prénom *</label>
@@ -1148,9 +1128,16 @@
             <select name="prestation" required>
               <option value="">Choisissez...</option>
               <option>Coupe homme</option>
-              <option>Rasage à l'ancienne</option>
-              <option>Taille de barbe</option>
-              <option>Coiffure mixte</option>
+              <option>Coupe + barbe</option>
+              <option>Barbe</option>
+              <option>Masque</option>
+              <option>Contours</option>
+              <option>Barbe + contour</option>
+              <option>Défrisage</option>
+              <option>Soins de visage</option>
+              <option>Teinture</option>
+              <option>Kératine</option>
+              <option>Coupe enfant</option>
               <option>Coloration</option>
               <option>Autre</option>
             </select>
@@ -1172,7 +1159,7 @@
       <p><span>L'Atelier de l'Homme</span> · 9 Rue Alfred Ottino, 93400 Saint-Ouen · 09 53 02 98 80</p>
       <div class="footer-links">
         <a href="#services">Services</a>
-        <a href="#galerie">Galerie</a>
+        <a href="#tarifs">Tarifs</a>
         <a href="#avis">Avis</a>
         <a href="#contact">Contact</a>
       </div>
@@ -1212,7 +1199,6 @@
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
         const btn = form.querySelector('.form-submit');
-        const original = btn.textContent;
         btn.textContent = 'Envoi...';
         btn.disabled = true;
         try {
